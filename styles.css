@@ -25,3 +25,33 @@
     height: 40px;
 
 }
+
+#mute, #unmute {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+#mute {
+    background-color: #ff4d4d; /* Red for mute */
+    color: white;
+}
+
+#mute:hover {
+    background-color: #e60000; /* Darker red on hover */
+}
+
+#unmute {
+    background-color: #4CAF50; /* Green for unmute */
+    color: white;
+    display: none; /* Initially hidden */
+}
+
+#unmute:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
