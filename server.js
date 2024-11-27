@@ -126,4 +126,9 @@ io.on('connection',(socket)=>{
         // console.log(offers)
     })
 
+    socket.on('hangupCall', (data) => {
+        socket.broadcast.emit('callEnded', { userName: data.userName });
+    });
+    
+
 })

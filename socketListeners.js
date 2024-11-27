@@ -20,6 +20,12 @@ socket.on('receivedIceCandidateFromServer',iceCandidate=>{
     console.log(iceCandidate)
 })
 
+socket.on('callEnded', (data) => {
+    console.log(`${data.userName} has ended the call.`);
+    hangup(); // End the call locally
+});
+
+
 function createOfferEls(offers){
     //make green answer button for this new offer
     const answerEl = document.querySelector('#answer');

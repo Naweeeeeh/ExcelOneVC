@@ -152,5 +152,30 @@ const addNewIceCandidate = iceCandidate=>{
     console.log("======Added Ice Candidate======")
 }
 
+const hangup = () => {
+    console.log("Hanging up the call...");
+
+    // Close the peer connection
+    if (peerConnection) {
+        peerConnection.close();
+        peerConnection = null;
+    }
+
+    // Stop local video stream
+    if (localStream) {
+        localStream.getTracks().forEach((track) => track.stop());
+        localStream = null;
+    }
+
+    // Reset the video elements
+    localVideoEl.srcObject = null;
+    remoteVideoEl.srcObject = null;
+
+    // Notify the signaling server about the hangup
+    socket.emit('hangupCall', { userName });
+
+    console.log("Call ended.");
+};
 
 document.querySelector('#call').addEventListener('click',call)
+document.querySelector('#hangup').addEventListener('click', hangup);
