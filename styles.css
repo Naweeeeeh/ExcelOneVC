@@ -1,19 +1,19 @@
-#videos{
+#videos {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2em;
 }
 
-.video-player{
+.video-player {
     background-color: black;
     width: 100%;
 }
 
-#video-wrapper{
+#video-wrapper {
     position: relative;
 }
 
-#waiting{
+#waiting {
     display: none;
     position: absolute;
     left: 0;
@@ -23,7 +23,6 @@
     margin: auto;
     width: 240px;
     height: 40px;
-
 }
 
 #mute, #unmute {
@@ -37,21 +36,20 @@
 }
 
 #mute {
-    background-color: #ff4d4d; /* Red for mute */
+    background-color: #ff4d4d;
     color: white;
 }
 
 #mute:hover {
-    background-color: #e60000; /* Darker red on hover */
+    background-color: #e60000;
 }
 
 #unmute {
-    background-color: #4CAF50; /* Green for unmute */
+    background-color: #4CAF50;
     color: white;
-    display: none; /* Initially hidden */
+    display: none;
 }
 
 #unmute:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049;
 }
-

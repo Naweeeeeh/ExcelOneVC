@@ -2,8 +2,7 @@ const userName = "ExcelOne-"+Math.floor(Math.random() * 100000)
 const password = "x";
 document.querySelector('#user-name').innerHTML = userName;
 
-// if trying it on a phone, use this instead...
-const socket = io.connect('https://192.168.1.18:8181/',{
+const socket = io.connect('https://192.168.1.14:8181/',{
     auth: {
         userName,password
     }
@@ -28,31 +27,29 @@ let peerConfiguration = {
     ]
 }
 
-// When a client initiates a call
 const call = async e => {
     await fetchUserMedia();
 
-    // peerConnection is all set with our STUN servers sent over
     await createPeerConnection();
 
-    // create offer time!
     try {
         console.log("Creating offer...")
         const offer = await peerConnection.createOffer();
         console.log(offer);
         peerConnection.setLocalDescription(offer);
         didIOffer = true;
-        socket.emit('newOffer', offer); // send offer to signalingServer
+        socket.emit('newOffer', offer); 
     } catch (err) {
         console.log(err)
     }
 }
 
+//client 2
 const answerOffer = async(offerObj) => {
     await fetchUserMedia()
     await createPeerConnection(offerObj);
-    const answer = await peerConnection.createAnswer({}); // just to make the docs happy
-    await peerConnection.setLocalDescription(answer); // this is CLIENT2, and CLIENT2 uses the answer as the localDesc
+    const answer = await peerConnection.createAnswer({}); 
+    await peerConnection.setLocalDescription(answer); 
     console.log(offerObj)
     console.log(answer)
     offerObj.answer = answer;
@@ -66,9 +63,6 @@ const answerOffer = async(offerObj) => {
 }
 
 const addAnswer = async(offerObj) => {
-    // addAnswer is called in socketListeners when an answerResponse is emitted.
-    // at this point, the offer and answer have been exchanged!
-    // now CLIENT1 needs to set the remote
     await peerConnection.setRemoteDescription(offerObj.answer)
 }
 
@@ -96,7 +90,6 @@ const createPeerConnection = (offerObj) => {
         remoteVideoEl.srcObject = remoteStream;
 
         localStream.getTracks().forEach(track => {
-            // add localtracks so that they can be sent once the connection is established
             peerConnection.addTrack(track, localStream);
         })
 
@@ -163,7 +156,7 @@ const hangup = () => {
 const muteAudio = () => {
     if (localStream) {
         localStream.getAudioTracks().forEach(track => {
-            track.enabled = false; // Mute the audio
+            track.enabled = false; 
         });
     }
     document.querySelector('#mute').style.display = "none";
@@ -173,7 +166,7 @@ const muteAudio = () => {
 const unmuteAudio = () => {
     if (localStream) {
         localStream.getAudioTracks().forEach(track => {
-            track.enabled = true; // Unmute the audio
+            track.enabled = true; 
         });
     }
     document.querySelector('#mute').style.display = "inline";
